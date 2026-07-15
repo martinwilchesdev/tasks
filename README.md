@@ -99,7 +99,7 @@ server {
     index index.php;
 
     ssl_certificate /etc/nginx/ssl/tareas.crt;
-    ssl_certificate_ke /etc/nginx/ssl/tareas.key;
+    ssl_certificate_key /etc/nginx/ssl/tareas.key;
 
     location / {
         try_files $uri $uri/ =404;
