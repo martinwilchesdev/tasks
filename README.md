@@ -82,3 +82,34 @@ sudo openssl req -x509 -nodes -dayys 365 -newkey rsa:2048 -keyout /etc/nginx/ssl
 # Configurar Nginx para usar el certificado
 sudo nano /etc/nginx/sites-available/tareas
 ```
+
+### Ejemplo configuracipión Nginx
+
+```nginx
+server {
+    listen 80;
+    server_name tareas.local;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name tareas.local;
+    root /var/www/tareas;
+    index index.php;
+
+    ssl_certificate /etc/nginx/ssl/tareas.crt;
+    ssl_certificate_ke /etc/nginx/ssl/tareas.key;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+```
