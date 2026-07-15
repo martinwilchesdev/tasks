@@ -63,3 +63,22 @@ ls -la /var/run/php
 sudo rm /etc/nginx/sites-enabled/default
 sudo systemctl reload nginx
 ```
+
+# Host Virtual
+
+C:\Windows\System32\crivers\etc\hosts
+
+```
+127.0.0.1    tareas.local	
+```
+
+## HTTPS con certificado local
+
+```bash
+# Generar certificado
+sudo mkdir /etc/nginx/ssl
+sudo openssl req -x509 -nodes -dayys 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/tareas.key -out /etc/nginx/ssl/tareas.crt -subj "/CN=tareas.local"
+
+# Configurar Nginx para usar el certificado
+sudo nano /etc/nginx/sites-available/tareas
+```
